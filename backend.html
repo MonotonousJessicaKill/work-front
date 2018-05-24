@@ -1,0 +1,220 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Backend</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="./css/main.css" rel="stylesheet">
+</head>
+<body>
+<div type="button" class="btn btn-primary btn-lg btn-block"
+     style="margin-bottom: 5px;padding-bottom: 0;padding-top: 10px;">
+    <span style="margin-right: 14%">Azure SRE Integration Management Platform 1.0</span>
+    <p style="text-align: right;font-size: 15px;margin-top: 0;margin-bottom: 0;padding-bottom: 0">
+        Microsoft Azure 由<i>世纪互联</i>&nbsp;&reg;&nbsp;运营
+    </p>
+</div>
+<div class="col-md-1"></div>
+<div class="col-md-10">
+
+    <!-- Nav tabs -->
+    <ul id="myTab" class="nav nav-tabs" role="tablist" style="margin: 3px auto">
+        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab"
+                                                  data-toggle="tab">Login</a></li>
+        <li role="presentation">
+            <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Users</a></li>
+        <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Tools</a>
+        </li>
+        <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a>
+        </li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <!-- 第一个管理页面 - home - login -->
+        <div role="tabpanel" class="tab-pane  active" id="home" style="margin: 10% auto;width: 50%">
+            <form id="login-form" class="form-horizontal" onkeydown="onKeyDown(event)">
+                <div class="form-group">
+                    <label for="username" class="col-sm-2 control-label">Username</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" name="username" id="username" placeholder="Username"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="password" class="col-sm-2 control-label">Password</label>
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control" name="password" id="password"
+                               placeholder="Password">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox"> Remember me
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="button" class="btn btn-primary">Sign in</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+        <!-- 第2个管理页面 - user -->
+        <div role="tabpanel" class="tab-pane " id="profile">
+            <table id="user-table" class="table table-striped table-hover table-responsive"
+                   style="width:80%;margin: 1% auto">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>username</th>
+                    <th>role</th>
+                    <th>modify</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="4">
+                        <button id="addUser-btn" type="button" class="btn btn-default" aria-label="Left Align">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                        </button>
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+
+            <!-- new user -->
+            <form id="addUser" class="hidden" style="width: 80%;margin: 5px auto" onkeydown="onKeyDown(event)">
+                <h3>add new user</h3>
+                <h5>username:</h5><input type="text" class="form-control" placeholder="Text input" name="username">
+                <h5>password:</h5><input type="text" class="form-control" placeholder="Text input" name="password">
+                <h5>role:</h5>
+                <label class="radio-inline">
+                    <input type="radio" name="role" id="inlineRadio1" value="admin"> admin
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="role" id="inlineRadio2" value="user"> user
+                </label>
+                <br>
+                <button type="button" class="btn btn-primary" style="margin: 10px auto">Submit</button>
+            </form>
+
+        </div>
+
+        <!-- 第3个管理页面 -->
+
+        <div role="tabpanel" class="tab-pane " id="messages">
+			<h2>Tools Shortcut</h2>
+            <div class="col-md-5">
+                
+                <ul id="utils" class="list-group" style="margin: 5% auto">
+
+                    <li class="list-group-item list-group-item-success" style="margin: 0;">
+                        <h3 style="text-align: center">Weekly Subscription Report</h3>
+                        <button type="button" class="btn btn-success" onclick="runUtils(event,'WeeklySubscriptionReport')">
+                            RUN SCRIPT
+                        </button>
+                    </li>
+
+                    <li class="list-group-item list-group-item-info" style="margin: 20px 0">
+                        <h3 style="text-align: center">Monthly Certificates Report</h3>
+                        <button type="button"  class="btn btn-info" onclick="runUtils(event,'MonthlyCertificateReport')"
+                        style="margin-left: 10%"
+                        >
+                            RUN SCRIPT
+                        </button>
+                    </li>
+
+                    <li class="list-group-item list-group-item-success" style="margin: 0">
+                        <h3 style="text-align: center">Daily KPI Report</h3>
+                        <button type="button" class="btn btn-success" onclick="runUtils(event,'DailyKPIReport')" style="margin-left: 20%">
+                            RUN SCRIPT
+                        </button>
+                    </li>
+					
+					<li class="list-group-item list-group-item-success" style="margin: 0">
+                        <h3 style="text-align: center">Weekly KPI Report</h3>
+                        <button type="button" class="btn btn-success" onclick="runUtils(event,'WeeklyKPIReport')" style="margin-left: 20%">
+                            RUN SCRIPT
+                        </button>
+                    </li>
+					
+					<li class="list-group-item list-group-item-success" style="margin: 0">
+                        <h3 style="text-align: center">Monthly KPI Report</h3>
+                        <button type="button" class="btn btn-success" onclick="runUtils(event,'MonthlyKPIReport')" style="margin-left: 20%">
+                            RUN SCRIPT
+                        </button>
+                    </li>
+
+
+                </ul>
+            </div>
+            <div class="col-md-2"></div>
+            <div class="col-md-5" style="visibility:hidden">
+				<ul id="utils-right" class="list-group" style="margin: 5% auto">
+                    <li class="list-group-item list-group-item-success" style="margin: 0;background-color: #c0a4e2">
+                        <h3 style="text-align: center">PFGoldAutoTriage Service</h3>
+                        <button id="PFGold-btn" type="button" class="btn btn-primary" onclick="startService(event,'PFGoldAutoTriage')"
+                                style="margin-left: 20%;margin-right: 20%">
+                            RUN SCRIPT
+                        </button><img id="pfgold-img" src="off.gif" style="width: 20%;height: 20%;">
+                    </li>
+                    <li class="list-group-item list-group-item-success" style="margin: 0;background-color: #c0a4e2">
+                        <h3 style="text-align: center">WARMAutoReply Service</h3>
+                        <button id="WARM-btn" type="button" class="btn btn-primary" onclick="startService(event,'WARMAutoReply')"
+                                style="margin-left: 20%;margin-right: 20%">
+                            RUN SCRIPT
+                        </button><img id="warm-img" src="off.gif" style="width: 30%;height: 30%;">
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+        <!-- 第4个管理页面 -->
+        <div role="tabpanel" class="tab-pane " id="settings">
+            <table id="note-table" class="table table-striped table-hover table-responsive"
+                   style="width:80%;margin: 1% auto">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Description</th>
+                    <th>Create Date</th>
+                    <th>Expired Date</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+                <tfoot>
+                </tfoot>
+            </table>
+            <form id="add-msg" style="width:80%;margin: 2% auto">
+                <h3>======New Note======</h3>
+                <h4>Description:</h4>
+                <div class="form-group" style="width: 40%;">
+                    <textarea class="form-control" name="msg" rows="3"></textarea>
+                </div>
+                <h4>Days:</h4>
+                <input type="number" name="expired" min="1" max="7"/>
+                <br>
+                <button type="button" class="btn btn-primary" style="margin-top: 5px; ">OK</button>
+            </form>
+        </div>
+
+    </div>
+
+
+</div>
+<div class="col-md-1"></div>
+</body>
+<script src="./js/jquery-3.3.1.min.js"></script>
+<script src="./js/bootstrap.min.js"></script>
+<script src="js/back.js"></script>
+</html>

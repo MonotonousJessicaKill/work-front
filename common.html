@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>full</title>
+    <link rel="stylesheet" href="css/jquery.fullpage.css">
+    <script src="./js/jquery-3.3.1.min.js" type="text/javascript"></script>
+    <script src="js/jquery.easings.min.js" type="text/javascript"></script>
+    <script src="js/jquery.fullpage.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+<div id="full">
+    <div  id="my-page1" class="section">
+        <iframe src="search.html"></iframe>
+    </div>
+    <div id="my-page2" class="section">
+        <iframe src="https://app.powerbi.cn/view?r=eyJrIjoiODVjZTg3ZTMtZjdhMS00MjAyLThjNjMtZDNmZGYxZDY2OTNlIiwidCI6ImYwNjYzNTYxLWU3ZGYtNDY3ZC04MjgyLTgwMjdhNWFhNzRjZiJ9"></iframe>
+    </div>
+    <div id="my-page3" class="section">
+        <iframe src="http://172.31.1.102/moni/assigntime.php"></iframe>
+    </div>
+</div>
+
+</body>
+<script>
+    $('#full').fullpage({
+
+                     navigation           :true,                             //圆点导航
+                     navigationPosition   :'right',                        　//圆点导航位置left or right
+                     navigationTooltips   :['','',''],    　　//圆点导航提示信息
+                     showActiveTooltip    :true,                             //圆点导航提示信息是否显示
+                     sectionsColor        :['#E6E6E6','#66A3FF',''],         //设置每一屏的背景色
+                     anchors              :['page1','page2','page3'],        //设置锚点
+                     menu                 :'#menu',                          //导航
+                     verticalCentered     :false,                            //设置元素是否垂直居中
+                     paddingTop           :'0',                     //设置每一屏内容的内边距
+                     paddingBottom        :'13px',
+                     scrollingSpeed       :2000,                            //设置切屏速度
+                    afterLoad: function(anchorLink, index){
+//                        var loadedSection = $(this);
+//                        window.parent.switchSuccess();
+                    }
+
+    });
+    function moveTofirst() {
+
+        $.fn.fullpage.moveTo(1);
+    }
+    function moveTosecond() {
+        $.fn.fullpage.moveTo(2);
+    }
+    function moveTothird() {
+        $.fn.fullpage.moveTo(3);
+    }
+
+</script>
+</html>

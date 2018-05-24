@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" style="height: 90%;width: 98%">
+<head>
+    <title>Azure WADE</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="./css/main.css" rel="stylesheet">
+</head>
+<body style="height:100%;background-image: url(1.jpg)">
+    <div type="button" id="btn-title" class="btn btn-primary btn-lg btn-block" style="margin-bottom: 5px;padding-bottom: 0;padding-top: 10px;">
+        <a type="button" class="btn btn-success" aria-label="Left Align" href="backend.html" target="_blank">
+            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+        </a>
+        <a class="btn btn-info" role="button" data-toggle="collapse" href="#collapseAlert" aria-expanded="false" aria-controls="collapseExample" style="margin-right: 18%">
+            <span class="glyphicon glyphicon-bell" aria-hidden="true"></span>
+        </a>
+        <span style="margin-right: 14%">Azure SRE Integration Management Platform 1.0</span>
+        <p style="text-align: right;font-size: 15px;margin-top: 0;margin-bottom: 0;padding-bottom: 0">
+            Microsoft Azure 由<i>世纪互联</i>&nbsp;&reg;&nbsp;运营
+        </p>
+    </div>
+<div class="row" style="height: 100%;margin-left: 5px">
+    <div class="col-md-2" style="height: 100%">
+        <ul class="nav nav-pills nav-stacked">
+            <li role="presentation" class="active disabled"><a href="#" style="text-align: center">Options</a></li>
+            <li role="presentation" ><a id="searchPage-btn"  class="bg-info" href="#" style="text-align: center" >Search</a></li>
+            <li role="presentation"  ><a id="powerbiPage-btn" class="bg-info" href="#" style="text-align: center">WADE Dashboard</a></li>
+            <li role="presentation" ><a id="pro-btn"  class="bg-info" href="#" style="text-align: center" >Service Monitor</a></li>
+            <li role="presentation" ><a target="_blank" class="bg-info" href="http://waps-18:8080/tfs/DefaultCollection/Script/_workitems#_a=query&path=Shared%20Queries%2FProblem%20Backlog" style="text-align: center" >Problem Management</a></li>
+            <li role="presentation" ><a target="_blank" class="bg-info" href="http://waps-18:8080/tfs/DefaultCollection/Script/_workitems#path=Shared+Queries%2FWADE-+TSG&_a=query" style="text-align: center" >Trouble Shooting</a></li>
+            <li role="presentation" ><a target="_blank" class="bg-info" href="http://waps-18:8080/tfs/DefaultCollection/Script/_workitems#_a=query&path=Shared%20Queries%2FProduct%20Backlog_WADE" style="text-align: center" >DevOps</a></li>
+            <li role="presentation" ><a target="_blank" class="bg-info" href="http://waps-18:8080/tfs/DefaultCollection/Script/_versionControl" style="text-align: center" >Configuration</a></li>
+        </ul>
+
+        <a class="btn bg-success btn-block" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"
+        style="margin-top: 50px">
+            Quick Link
+        </a>
+        <div class="collapse" id="collapseExample">
+            <div class="well">
+                <ul class="nav nav-pills nav-stacked">
+                    <li role="presentation"><a href="https://jitaccess.security.core.chinacloudapi.cn/WorkFlowTempAccess.aspx" target="_blank" style="text-align: center">JIT Access</a></li>
+                    <li role="presentation"><a href="https://icm.ad.msft.net/imp/v3/incidents/search/basic" target="_blank" style="text-align: center">Incident Management</a></li>
+                    <li role="presentation"><a href="http://aka.ms/jarvis-dsts-mc" target="_blank" style="text-align: center">Jarvis</a></li>
+                    <li role="presentation"><a href="https://portal.azure.cn/" target="_blank" style="text-align: center">Azure Portal</a></li>
+                    <li role="presentation"><a href="\\waps-18\JumpBox" target="_blank" style="text-align: center">JumpBox</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-10" style="height: 100%">
+        <!-- 完成后设为打开时为显示 -->
+        <div id="collapseAlert" class="alert-my " style="width: 25%">
+            <span class="glyphicon glyphicon-chevron-up" aria-hidden="true" style="margin-left: 30px;
+                         color: #bc3dff"></span>
+            <div id="alert-area">
+
+            </div>
+
+        </div>
+
+        <iframe id="iframea" src="common.html" scrolling="false" style="opacity: 0.9" >
+            not support.
+        </iframe>
+    </div>
+</div>
+</body>
+<script src="./js/jquery-3.3.1.min.js"></script>
+<script src="./js/bootstrap.min.js"></script>
+<script>
+    $(function () {
+        $("#searchPage-btn").click(function () {
+            var ifr = document.getElementById('iframea');
+            var win = ifr.window || ifr.contentWindow;
+            win.moveTofirst();
+        });
+        $("#powerbiPage-btn").click(function () {
+            var ifr = document.getElementById('iframea');
+            var win = ifr.window || ifr.contentWindow;
+            win.moveTosecond();
+        });
+        $("#pro-btn").click(function () {
+            var ifr = document.getElementById('iframea');
+            var win = ifr.window || ifr.contentWindow;
+            win.moveTothird();
+        });
+
+        getNotifiaions();
+
+    });
+    function getNotifiaions() {
+        $.ajax({
+            url: "http://172.31.1.110:8089/note/notes/latest",
+            type: "get",
+            success: function (data) {
+                if(data.code!=200){
+                    alert("Failed : "+data.msg)
+                    return;
+                }
+                var items=data.data;
+                if(items == null)return;
+                var aa=$("#alert-area");
+                for(var i=0;i<items.length;i++){
+                    var item =items[i];
+                    aa.append(
+                        "<div class='alert alert-warning' role='alert' style='width: 80%;word-wrap: break-word;word-break: break-all'>"+item.description+"</div>"
+                    );
+                    $("#collapseAlert").collapse('show')
+                }
+            },
+            dataType: "json",
+            error: function (data) {
+                // do nothing
+            }
+        });
+    }
+</script>
+</html>
